@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "lib": ["DOM", "ESNext"],
+        "module": "CommonJS",
+        "target": "ES5",
+        
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+
+        "downlevelIteration": true,
+        "removeComments": true,
+
+        "strict": true,
+    }
+}

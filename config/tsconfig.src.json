@@ -1,0 +1,17 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "importsNotUsedAsValues": "preserve",
+        "isolatedModules": true,
+
+        "rootDir": "../src",
+        "outDir": "../dist",
+        "baseUrl": "../src",
+
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "inlineSources": true,
+    },
+    "include": ["../src"]
+}
