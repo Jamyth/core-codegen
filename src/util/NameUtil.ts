@@ -1,4 +1,4 @@
-import type { Case } from 'type';
+import type { Case } from '../type';
 
 function transformCase(target: string, casing: Case) {
     const splitArray = split(target);
