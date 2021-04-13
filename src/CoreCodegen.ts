@@ -26,6 +26,7 @@ export class CoreCodegen {
             this.copyDirectory();
             this.updatePackageJSON();
             this.installDependencies();
+            this.initializeGit();
             this.logger.task('Generation Complete, enjoy coding !');
         } catch (error) {
             try {
@@ -108,6 +109,18 @@ export class CoreCodegen {
             'yarn',
             ['add', '-DE', ...devDependencies],
             'Cannot Install dev-dependencies',
+        );
+    }
+
+    initializeGit() {
+        this.logger.task('Initialize git repository and commit');
+        CommandUtil.spawn(this.projectDirectory, 'git', ['init'], 'Cannot initialize git repository');
+        CommandUtil.spawn(this.projectDirectory, 'git', ['add', '.'], 'Cannot add changes git tree');
+        CommandUtil.spawn(
+            this.projectDirectory,
+            'git',
+            ['commit', '-m', `[INIT]: ${this.name}: initialize project using Core-Codegen`],
+            'Cannot commit to git',
         );
     }
 }
