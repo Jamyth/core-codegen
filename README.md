@@ -13,8 +13,13 @@ $ yarn add -g @iamyth/core-codegen
 In your Terminal, run:
 
 ```bash
-$ core-codegen your-package-name
+$ core-codegen your-package-name (--flags)
 ```
+
+## Flags
+
+-   react
+-   node
 
 > **Package naming convention will strictly follow `NodeJS`'s**
 

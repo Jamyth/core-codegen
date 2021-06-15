@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "target": "ES5",
+
+        "sourceMap": true,
+        "inlineSources": true,
+
+        "rootDir": "../src",
+        "outDir": "../dist",
+
+        "jsx": "react",
+        "baseUrl": "../src",
+
+        "importsNotUsedAsValues": "preserve",
+        "isolatedModules": true
+    },
+    "include": ["../src"]
+}

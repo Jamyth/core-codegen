@@ -4,6 +4,9 @@ import path from 'path';
 import fs from 'fs-extra';
 import { ReplaceUtil } from './util/ReplaceUtil';
 import { CommandUtil } from './util/CommandUtil';
+import { AbstractGenerator } from './generator/AbstractGenerator';
+import { ReactGenerator } from './generator/react';
+import { NodeGenerator } from './generator/node';
 
 export class CoreCodegen {
     private readonly projectDirectory;
@@ -11,12 +14,14 @@ export class CoreCodegen {
     private readonly rootPath: string;
     private readonly templatePath;
     private readonly logger = createConsoleLogger('Core Codegen');
+    private readonly generator: AbstractGenerator;
 
     constructor() {
         this.name = String(yargs.argv._[0]);
         this.rootPath = path.join();
         this.projectDirectory = this.getProjectDirectory();
         this.templatePath = path.join(__dirname, './template');
+        this.generator = this.selectGenerator();
     }
 
     async run() {
@@ -44,6 +49,27 @@ export class CoreCodegen {
         return path.join(this.rootPath, name[name.length === 2 ? 1 : 0]);
     }
 
+    selectGenerator(): AbstractGenerator {
+        const isNest = yargs.argv.nest as boolean;
+        const isReact = yargs.argv.react as boolean;
+        const isFullStack = yargs.argv.fullstack as boolean;
+        const withTest = (yargs.argv.test as boolean) ?? false;
+
+        if (isReact) {
+            return new ReactGenerator({ projectDirectory: this.projectDirectory });
+        }
+
+        if (isNest) {
+            // TODO: Jamyth
+        }
+
+        if (isFullStack) {
+            // TODO: Jamyth
+        }
+
+        return new NodeGenerator({ projectDirectory: this.projectDirectory, withTest });
+    }
+
     checkPreCondition() {
         this.logger.task('Start checking Pre-Condition');
         if (this.name === 'undefined') throw new Error('Project name is not specified.');
@@ -61,27 +87,7 @@ export class CoreCodegen {
     }
 
     copyDirectory() {
-        this.logger.task(`Copying Project Template to ${this.projectDirectory}`);
-        const directories = ['config', 'script', 'src', 'test'];
-
-        for (const directory of directories) {
-            fs.mkdirSync(`${this.projectDirectory}/${directory}`, { recursive: true });
-        }
-
-        const configFiles = [
-            'config/tsconfig.base.json',
-            'config/tsconfig.script.json',
-            'config/tsconfig.src.json',
-            'config/tsconfig.test.json',
-        ];
-        const scriptFiles = ['script/build.ts', 'script/format.ts', 'script/lint.ts', 'script/spawn.ts'];
-        const srcFiles = ['src/index.ts'];
-        const testFiles = ['test/index.test.ts'];
-        const files = ['.eslintrc.js', '.gitignore', '.prettierrc.js', 'package.json', 'tsconfig.json'];
-
-        for (const file of [...configFiles, ...scriptFiles, ...srcFiles, ...testFiles, ...files]) {
-            fs.copyFileSync(`${this.templatePath}/${file}.template`, `${this.projectDirectory}/${file}`);
-        }
+        this.generator.copyDirectory();
     }
 
     updatePackageJSON() {
@@ -93,23 +99,7 @@ export class CoreCodegen {
     }
 
     installDependencies() {
-        this.logger.task('Install dev-dependencies');
-        const devDependencies = [
-            'typescript',
-            'ts-node',
-            '@iamyth/logger',
-            '@iamyth/prettier-config',
-            'prettier',
-            'eslint-config-iamyth',
-            '@types/node',
-            'mocha',
-        ];
-        return CommandUtil.spawn(
-            this.projectDirectory,
-            'yarn',
-            ['add', '-DE', ...devDependencies],
-            'Cannot Install dev-dependencies',
-        );
+        this.generator.installDependencies();
     }
 
     initializeGit() {
