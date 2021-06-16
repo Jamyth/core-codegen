@@ -18,6 +18,7 @@ export class ReactGenerator extends AbstractGenerator {
             // prettier-ignore
             'config',
             'script',
+            'static',
             'src/component',
             'src/module/main/Main',
             'src/util',

@@ -32,6 +32,7 @@ import fs from 'fs-extra';
  * |    |   |   |   +- start.ts
  * |    |   |   |   +- spawn.ts
  * |    |   |   |
+ * |    |   |   +- static/
  * |    |   |   +- src/
  * |    |   |   |   +- component/
  * |    |   |   |   +- module/
@@ -144,6 +145,7 @@ export class FullStackGenerator extends AbstractGenerator {
             // prettier-ignore
             'template/config',
             'template/script',
+            'template/static',
             'template/src/component',
             'template/src/module/main/Main',
             'template/src/util',
