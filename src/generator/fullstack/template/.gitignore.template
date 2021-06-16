@@ -1,0 +1,13 @@
+# Node Modules
+**/node_modules
+
+# Output
+api/dist/
+web/**/build
+
+# Cache
+web/**/.webpack-cache
+
+# Logs
+**/yarn-error.log
+**/npm-debug.log

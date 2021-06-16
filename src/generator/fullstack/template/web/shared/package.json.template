@@ -1,0 +1,8 @@
+{
+    "name": "@/// {1} ////web-shared",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "private": true
+  }
+  

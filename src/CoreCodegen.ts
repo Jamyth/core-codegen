@@ -2,17 +2,17 @@ import { createConsoleLogger } from '@iamyth/logger';
 import yargs from 'yargs';
 import path from 'path';
 import fs from 'fs-extra';
-import { ReplaceUtil } from './util/ReplaceUtil';
 import { CommandUtil } from './util/CommandUtil';
 import { AbstractGenerator } from './generator/AbstractGenerator';
 import { ReactGenerator } from './generator/react';
 import { NodeGenerator } from './generator/node';
+import { NestGenerator } from './generator/nestjs';
+import { FullStackGenerator } from './generator/fullstack';
 
 export class CoreCodegen {
     private readonly projectDirectory;
     private readonly name: string;
     private readonly rootPath: string;
-    private readonly templatePath;
     private readonly logger = createConsoleLogger('Core Codegen');
     private readonly generator: AbstractGenerator;
 
@@ -20,7 +20,6 @@ export class CoreCodegen {
         this.name = String(yargs.argv._[0]);
         this.rootPath = path.join();
         this.projectDirectory = this.getProjectDirectory();
-        this.templatePath = path.join(__dirname, './template');
         this.generator = this.selectGenerator();
     }
 
@@ -60,11 +59,11 @@ export class CoreCodegen {
         }
 
         if (isNest) {
-            // TODO: Jamyth
+            return new NestGenerator({ projectDirectory: this.projectDirectory });
         }
 
         if (isFullStack) {
-            // TODO: Jamyth
+            return new FullStackGenerator({ projectDirectory: this.projectDirectory });
         }
 
         return new NodeGenerator({ projectDirectory: this.projectDirectory, withTest });
@@ -91,11 +90,7 @@ export class CoreCodegen {
     }
 
     updatePackageJSON() {
-        const jsonPath = path.join(this.projectDirectory, './package.json');
-        this.logger.task(`Update package.json at ${jsonPath}`);
-        const packageJSON = fs.readFileSync(jsonPath, { encoding: 'utf-8' });
-        const newContent = ReplaceUtil.replaceTemplate(packageJSON, [1], [this.name]);
-        fs.writeFileSync(jsonPath, newContent, { encoding: 'utf-8' });
+        this.generator.updatePackageJSON(this.name);
     }
 
     installDependencies() {

@@ -16,6 +16,8 @@ function build() {
         // prettier-ignore
         'generator/node/template',
         'generator/react/template',
+        'generator/nestjs/template',
+        'generator/fullstack/template',
     ];
 
     for (const template of templatePaths) {

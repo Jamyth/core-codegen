@@ -1,0 +1,11 @@
+{
+    "name": "@/// {1} ////root",
+    "license": "MIT",
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "web/**"
+        ],
+        "nohoist": []
+    }
+}

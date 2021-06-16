@@ -40,6 +40,7 @@ export class ReactGenerator extends AbstractGenerator {
             'script/format.ts',
             'script/lint.ts',
             'script/spawn.ts',
+            'script/start.ts',
         ];
         const srcFiles: string[] = [
             // prettier-ignore
@@ -95,6 +96,7 @@ export class ReactGenerator extends AbstractGenerator {
             'eslint-config-iamyth',
             '@types/node',
             '@iamyth/webpack-runner',
+            'coil-react-cli',
         ];
 
         CommandUtil.spawn(
