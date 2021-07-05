@@ -1,4 +1,5 @@
-import { AbstractGenerator, AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
+import type { AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
+import { AbstractGenerator } from '../AbstractGenerator';
 import path from 'path';
 import { createConsoleLogger } from '@iamyth/logger';
 import fs from 'fs-extra';
@@ -94,6 +95,7 @@ export class ReactGenerator extends AbstractGenerator {
             '@iamyth/logger',
             '@iamyth/prettier-config',
             'prettier',
+            'eslint',
             'eslint-config-iamyth',
             '@types/node',
             '@iamyth/webpack-runner',

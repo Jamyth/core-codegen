@@ -1,4 +1,5 @@
-import { AbstractGenerator, AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
+import type { AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
+import { AbstractGenerator } from '../AbstractGenerator';
 import { CommandUtil } from '../../util/CommandUtil';
 import { ReplaceUtil } from '../../util/ReplaceUtil';
 import { createConsoleLogger } from '@iamyth/logger';
@@ -62,6 +63,7 @@ import fs from 'fs-extra';
 export class FullStackGenerator extends AbstractGenerator {
     private readonly templatePath: string = path.join(__dirname, './template');
     private readonly logger = createConsoleLogger('FullStack Generator');
+    private readonly cannotInstallDepMsg = 'Cannot Install dev-dependencies';
 
     constructor({ projectDirectory }: AbstractGeneratorConstructorOptions) {
         super({ projectDirectory, withTest: false });
@@ -213,17 +215,13 @@ export class FullStackGenerator extends AbstractGenerator {
             'ts-node',
             'prettier',
             '@iamyth/prettier-config',
+            'eslint',
             'eslint-config-iamyth',
             '@types/node',
             'coil-react-cli',
             '@iamyth/logger',
         ];
-        CommandUtil.spawn(
-            this.projectDirectory,
-            'yarn',
-            ['add', '-DEW', ...devDependencies],
-            'Cannot Install dev-dependencies',
-        );
+        CommandUtil.spawn(this.projectDirectory, 'yarn', ['add', '-DEW', ...devDependencies], this.cannotInstallDepMsg);
     }
     private installNestDependencies() {
         this.logger.task(`Installing dev-dependencies for API`);
@@ -236,7 +234,7 @@ export class FullStackGenerator extends AbstractGenerator {
             path.join(this.projectDirectory, 'api'),
             'yarn',
             ['add', '-DE', ...devDependencies],
-            'Cannot Install dev-dependencies',
+            this.cannotInstallDepMsg,
         );
 
         this.logger.task(`Installing dependencies for API`);
@@ -282,7 +280,7 @@ export class FullStackGenerator extends AbstractGenerator {
             path.join(this.projectDirectory, 'web/template'),
             'yarn',
             ['add', '-DE', ...devDependencies],
-            'Cannot Install dev-dependencies',
+            this.cannotInstallDepMsg,
         );
 
         this.logger.task(`Installing dev-dependencies for web/shared`);
@@ -295,7 +293,7 @@ export class FullStackGenerator extends AbstractGenerator {
             path.join(this.projectDirectory, 'web/shared'),
             'yarn',
             ['add', '-DE', ...sharedDevDependencies],
-            'Cannot Install dev-dependencies',
+            this.cannotInstallDepMsg,
         );
     }
 }

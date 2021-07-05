@@ -18,9 +18,6 @@ export abstract class AbstractGenerator {
         this.withTest = withTest ?? false;
     }
 
-    abstract copyDirectory(): void;
-    abstract installDependencies(): void;
-
     updatePackageJSON(name: string) {
         const jsonPath = path.join(this.projectDirectory, './package.json');
         this.abstractLogger.task(`Update package.json at ${jsonPath}`);
@@ -28,4 +25,7 @@ export abstract class AbstractGenerator {
         const newContent = ReplaceUtil.replaceTemplate(packageJSON, [1], [name]);
         fs.writeFileSync(jsonPath, newContent, { encoding: 'utf-8' });
     }
+
+    abstract copyDirectory(): void;
+    abstract installDependencies(): void;
 }

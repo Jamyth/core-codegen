@@ -1,13 +1,23 @@
 import { createConsoleLogger } from '@iamyth/logger';
 import yargs from 'yargs';
+import type { Arguments } from 'yargs';
 import path from 'path';
 import fs from 'fs-extra';
 import { CommandUtil } from './util/CommandUtil';
-import { AbstractGenerator } from './generator/AbstractGenerator';
+import type { AbstractGenerator } from './generator/AbstractGenerator';
 import { ReactGenerator } from './generator/react';
 import { NodeGenerator } from './generator/node';
 import { NestGenerator } from './generator/nestjs';
 import { FullStackGenerator } from './generator/fullstack';
+
+interface YargsArguments {
+    nest: boolean;
+    react: boolean;
+    fullstack: boolean;
+    test: boolean;
+}
+
+const argv = yargs.argv as Arguments<YargsArguments>;
 
 export class CoreCodegen {
     private readonly projectDirectory;
@@ -17,7 +27,7 @@ export class CoreCodegen {
     private readonly generator: AbstractGenerator;
 
     constructor() {
-        this.name = String(yargs.argv._[0]);
+        this.name = String(argv._[0]);
         this.rootPath = path.join();
         this.projectDirectory = this.getProjectDirectory();
         this.generator = this.selectGenerator();
@@ -34,7 +44,7 @@ export class CoreCodegen {
             this.logger.task('Generation Complete, enjoy coding !');
         } catch (error) {
             try {
-                fs.rmdirSync(this.projectDirectory, { recursive: true });
+                fs.rmdirSync(this.projectDirectory);
             } catch (error) {
                 // Do nothing
             }
@@ -49,10 +59,10 @@ export class CoreCodegen {
     }
 
     selectGenerator(): AbstractGenerator {
-        const isNest = yargs.argv.nest as boolean;
-        const isReact = yargs.argv.react as boolean;
-        const isFullStack = yargs.argv.fullstack as boolean;
-        const withTest = (yargs.argv.test as boolean) ?? false;
+        const isNest = argv.nest;
+        const isReact = argv.react;
+        const isFullStack = argv.fullstack;
+        const withTest = argv.test ?? false;
 
         if (isReact) {
             return new ReactGenerator({ projectDirectory: this.projectDirectory });

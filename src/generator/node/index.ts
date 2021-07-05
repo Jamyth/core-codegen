@@ -1,4 +1,4 @@
-import { AbstractGenerator, AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
+import { AbstractGenerator } from '../AbstractGenerator';
 import path from 'path';
 import { createConsoleLogger } from '@iamyth/logger';
 import fs from 'fs-extra';
@@ -7,10 +7,6 @@ import { CommandUtil } from '../../util/CommandUtil';
 export class NodeGenerator extends AbstractGenerator {
     private readonly templatePath: string = path.join(__dirname, './template');
     private readonly logger = createConsoleLogger('Node Generator');
-
-    constructor(options: AbstractGeneratorConstructorOptions) {
-        super(options);
-    }
 
     copyDirectory(): void {
         this.logger.task(`Copying Project Template to ${this.projectDirectory}`);
@@ -75,6 +71,7 @@ export class NodeGenerator extends AbstractGenerator {
             '@iamyth/logger',
             '@iamyth/prettier-config',
             'prettier',
+            'eslint',
             'eslint-config-iamyth',
             '@types/node',
         ];
