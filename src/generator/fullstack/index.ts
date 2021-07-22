@@ -18,6 +18,7 @@ import fs from 'fs-extra';
  * |    |   +- package.json
  * |    |   +- tsconfig.build.json
  * |    |   +- tsconfig.json
+ * |    |   +- webpack-config.js
  * |    |
  * |    +- web/
  * |    |   +- template/
@@ -138,7 +139,13 @@ export class FullStackGenerator extends AbstractGenerator {
         ];
         this.mkdirSync('/api', directories);
 
-        const files: string[] = ['nestjs-cli.json', 'package.json', 'tsconfig.json', 'tsconfig.build.json'];
+        const files: string[] = [
+            'nestjs-cli.json',
+            'package.json',
+            'tsconfig.json',
+            'tsconfig.build.json',
+            'webpack-config.js',
+        ];
         const srcFiles: string[] = ['src/main.ts', 'src/app.module.ts'];
         this.copyFileSync('/api', [...files, ...srcFiles]);
     }

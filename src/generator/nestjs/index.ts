@@ -35,6 +35,7 @@ export class NestGenerator extends AbstractGenerator {
             '.eslintrc.js',
             '.gitignore',
             '.prettierrc.js',
+            'webpack-config.js',
         ];
 
         for (const file of [...srcFiles, ...files]) {

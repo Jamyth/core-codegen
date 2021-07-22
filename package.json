@@ -1,6 +1,6 @@
 {
   "name": "@iamyth/core-codegen",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "description": "A simple codegen for Library Starter kit",
   "main": "dist/index.js",
   "repository": {
