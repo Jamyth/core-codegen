@@ -4,12 +4,13 @@ function replaceTemplate(content: string, iterator: (1 | 2 | 3)[], target: strin
     }
     const templates = iterator.map(getTemplate);
     return templates.reduce((acc, curr, index) => {
-        return acc.replaceAll(curr, target[index]);
+        const regex = new RegExp(curr, 'g');
+        return acc.replace(regex, target[index]);
     }, content);
 }
 
 function getTemplate(iterator: 1 | 2 | 3): string {
-    return `/// {${iterator}} ///`;
+    return `%%% ${iterator} %%%`;
 }
 
 export const ReplaceUtil = Object.freeze({

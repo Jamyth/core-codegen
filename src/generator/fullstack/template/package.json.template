@@ -1,5 +1,5 @@
 {
-    "name": "@/// {1} ////root",
+    "name": "@%%% 1 %%%/root",
     "license": "MIT",
     "private": true,
     "workspaces": {
