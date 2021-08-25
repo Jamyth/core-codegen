@@ -11,6 +11,5 @@
         "module": "coil-react",
         "start": "yarn run-script script/start.ts",
         "build": "yarn run-script script/build.ts"
-    },
-    "files": ["dist/**"]
+    }
 }

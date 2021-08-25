@@ -19,7 +19,9 @@ $ core-codegen your-package-name (--flags)
 ## Flags
 
 -   react
--   node
+-   nest
+-   fullstack
+-   `blank` for nodejs library
 
 > **Package naming convention will strictly follow `NodeJS`'s**
 

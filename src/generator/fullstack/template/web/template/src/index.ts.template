@@ -5,5 +5,4 @@ const MainComponent = async(() => import('module/main'), 'MainComponent');
 startApp({
     MainComponent,
     entryElement: document.getElementById('app'),
-    useError: () => () => {},
 });
