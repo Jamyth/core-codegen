@@ -3,7 +3,8 @@
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "target": "ES5",
-        "rootDir": "../"
+        "rootDir": "../",
+        "baseUrl": "../src",
     },
     "include": ["../src", "../test"]
 }

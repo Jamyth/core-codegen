@@ -7,9 +7,6 @@
         "sourceMap": true,
         "inlineSources": true,
 
-        "rootDir": "../src",
-        "outDir": "../dist",
-
         "jsx": "react",
         "baseUrl": "../src",
 
