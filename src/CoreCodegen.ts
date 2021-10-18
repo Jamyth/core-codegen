@@ -48,7 +48,9 @@ export class CoreCodegen {
             } catch (error) {
                 // Do nothing
             }
-            this.logger.error(error);
+            if (typeof error === 'string' || error instanceof Error || Array.isArray(error)) {
+                this.logger.error(error);
+            }
             process.exit(1);
         }
     }

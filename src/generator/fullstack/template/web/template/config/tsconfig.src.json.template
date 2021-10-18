@@ -7,7 +7,7 @@
         "sourceMap": true,
         "inlineSources": true,
 
-        "jsx": "react",
+        "jsx": "react-jsx",
         "baseUrl": "../src",
 
         "importsNotUsedAsValues": "preserve",
