@@ -71,7 +71,6 @@ export class NodeGenerator extends AbstractGenerator {
             '@iamyth/logger',
             '@iamyth/prettier-config',
             'prettier',
-            'eslint',
             'eslint-config-iamyth',
             '@types/node',
         ];

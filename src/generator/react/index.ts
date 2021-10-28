@@ -95,7 +95,6 @@ export class ReactGenerator extends AbstractGenerator {
             '@iamyth/logger',
             '@iamyth/prettier-config',
             'prettier',
-            'eslint',
             'eslint-config-iamyth',
             '@types/node',
             '@iamyth/webpack-runner',

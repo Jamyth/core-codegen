@@ -55,7 +55,6 @@ export class NestGenerator extends AbstractGenerator {
             'typescript',
             'prettier',
             '@iamyth/prettier-config',
-            'eslint',
             'eslint-config-iamyth',
         ];
 

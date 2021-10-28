@@ -222,7 +222,6 @@ export class FullStackGenerator extends AbstractGenerator {
             'ts-node',
             'prettier',
             '@iamyth/prettier-config',
-            'eslint',
             'eslint-config-iamyth',
             '@types/node',
             'coil-react-cli',
