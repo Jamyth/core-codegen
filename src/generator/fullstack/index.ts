@@ -234,6 +234,7 @@ export class FullStackGenerator extends AbstractGenerator {
         const devDependencies: string[] = [
             // prettier-ignore
             '@nestjs/schematics',
+            '@nestjs/cli',
             '@types/express',
         ];
         CommandUtil.spawn(

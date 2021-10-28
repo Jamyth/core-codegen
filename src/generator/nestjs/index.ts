@@ -49,6 +49,7 @@ export class NestGenerator extends AbstractGenerator {
         const devDependencies: string[] = [
             // prettier-ignore
             '@nestjs/schematics',
+            '@nestjs/cli',
             '@types/express',
             '@types/node',
             'ts-node',
