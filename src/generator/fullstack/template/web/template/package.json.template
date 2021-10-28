@@ -9,7 +9,6 @@
         "lint": "yarn run-script script/lint.ts",
         "build": "yarn run-script script/build.ts",
         "module": "coil-react",
-        "start": "yarn run-script script/start.ts",
-        "build": "yarn run-script script/build.ts"
+        "start": "yarn run-script script/start.ts"
     }
 }
