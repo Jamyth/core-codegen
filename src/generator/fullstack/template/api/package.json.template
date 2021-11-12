@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "prebuild": "rimraf dist",
-        "build": "nest build",
+        "build": "nest build -c ./nestjs-cli.json",
         "start": "nest start",
         "start:dev": "nest start --watch",
         "start:debug": "nest start --debug --watch",
