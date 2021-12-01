@@ -2,16 +2,11 @@ import path from 'path';
 import { createConsoleLogger } from '@iamyth/logger';
 import fs from 'fs-extra';
 import { CommandUtil } from '../../util/CommandUtil';
-import type { AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
 import { AbstractGenerator } from '../AbstractGenerator';
 
 export class NestGenerator extends AbstractGenerator {
     private readonly templatePath: string = path.join(__dirname, './template');
     private readonly logger = createConsoleLogger('Nest Generator');
-
-    constructor({ projectDirectory }: AbstractGeneratorConstructorOptions) {
-        super({ projectDirectory, withTest: false });
-    }
 
     copyDirectory(): void {
         this.logger.task(`Copying Project Template to ${this.projectDirectory}`);

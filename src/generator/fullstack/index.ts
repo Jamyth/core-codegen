@@ -1,4 +1,3 @@
-import type { AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
 import { AbstractGenerator } from '../AbstractGenerator';
 import { CommandUtil } from '../../util/CommandUtil';
 import { ReplaceUtil } from '../../util/ReplaceUtil';
@@ -65,10 +64,6 @@ export class FullStackGenerator extends AbstractGenerator {
     private readonly templatePath: string = path.join(__dirname, './template');
     private readonly logger = createConsoleLogger('FullStack Generator');
     private readonly cannotInstallDepMsg = 'Cannot Install dev-dependencies';
-
-    constructor({ projectDirectory }: AbstractGeneratorConstructorOptions) {
-        super({ projectDirectory, withTest: false });
-    }
 
     override updatePackageJSON(name: string) {
         const packageJSONs = [

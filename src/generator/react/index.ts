@@ -1,4 +1,3 @@
-import type { AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
 import { AbstractGenerator } from '../AbstractGenerator';
 import path from 'path';
 import { createConsoleLogger } from '@iamyth/logger';
@@ -8,10 +7,6 @@ import { CommandUtil } from '../../util/CommandUtil';
 export class ReactGenerator extends AbstractGenerator {
     private readonly templatePath: string = path.join(__dirname, './template');
     private readonly logger = createConsoleLogger('React Generator');
-
-    constructor({ projectDirectory }: AbstractGeneratorConstructorOptions) {
-        super({ projectDirectory });
-    }
 
     copyDirectory(): void {
         this.logger.task(`Copying Project Template to ${this.projectDirectory}`);

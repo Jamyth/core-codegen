@@ -15,6 +15,7 @@ interface YargsArguments {
     react: boolean;
     fullstack: boolean;
     test: boolean;
+    mono: boolean;
 }
 
 const argv = yargs.argv as Arguments<YargsArguments>;
@@ -57,6 +58,10 @@ export class CoreCodegen {
 
     getProjectDirectory() {
         const name = this.name.split('/');
+        if (argv.mono) {
+            const prefix = name[0].substring(1);
+            return path.join(this.rootPath, prefix);
+        }
         return path.join(this.rootPath, name[name.length === 2 ? 1 : 0]);
     }
 
@@ -65,20 +70,22 @@ export class CoreCodegen {
         const isReact = argv.react;
         const isFullStack = argv.fullstack;
         const withTest = argv.test ?? false;
+        const isMono = argv.mono ?? false;
+        const projectName = this.name;
 
         if (isReact) {
-            return new ReactGenerator({ projectDirectory: this.projectDirectory });
+            return new ReactGenerator({ projectDirectory: this.projectDirectory, projectName });
         }
 
         if (isNest) {
-            return new NestGenerator({ projectDirectory: this.projectDirectory });
+            return new NestGenerator({ projectDirectory: this.projectDirectory, projectName });
         }
 
         if (isFullStack) {
-            return new FullStackGenerator({ projectDirectory: this.projectDirectory });
+            return new FullStackGenerator({ projectDirectory: this.projectDirectory, projectName });
         }
 
-        return new NodeGenerator({ projectDirectory: this.projectDirectory, withTest });
+        return new NodeGenerator({ projectDirectory: this.projectDirectory, withTest, isMono, projectName });
     }
 
     checkPreCondition() {
@@ -87,6 +94,9 @@ export class CoreCodegen {
         if (!this.name?.trim()) throw new Error('Project name is invalid.');
         if (!/^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(this.name))
             throw new Error('Project name does not match the naming convention');
+        if (argv.mono && this.name.split('/').length !== 2) {
+            throw new Error(`Project specified with "--mono" flag, project name should be "@xxx/xxx" format`);
+        }
     }
 
     createProjectDirectory() {

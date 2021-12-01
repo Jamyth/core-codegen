@@ -4,18 +4,21 @@ import { ReplaceUtil } from '../util/ReplaceUtil';
 import { createConsoleLogger } from '@iamyth/logger';
 
 export interface AbstractGeneratorConstructorOptions {
+    projectName: string;
     projectDirectory: string;
     withTest?: boolean;
 }
 
 export abstract class AbstractGenerator {
-    protected readonly projectDirectory: string;
+    protected projectName: string;
+    protected projectDirectory: string;
     protected readonly withTest: boolean;
     private readonly abstractLogger = createConsoleLogger('Abstract Generator');
 
-    constructor({ projectDirectory, withTest }: AbstractGeneratorConstructorOptions) {
+    constructor({ projectDirectory, withTest, projectName }: AbstractGeneratorConstructorOptions) {
         this.projectDirectory = projectDirectory;
         this.withTest = withTest ?? false;
+        this.projectName = projectName;
     }
 
     updatePackageJSON(name: string) {
@@ -24,6 +27,10 @@ export abstract class AbstractGenerator {
         const packageJSON = fs.readFileSync(jsonPath, { encoding: 'utf-8' });
         const newContent = ReplaceUtil.replaceTemplate(packageJSON, [1], [name]);
         fs.writeFileSync(jsonPath, newContent, { encoding: 'utf-8' });
+    }
+
+    protected updateProjectDirectory(directory: string) {
+        this.projectDirectory = directory;
     }
 
     abstract copyDirectory(): void;
