@@ -18,6 +18,7 @@ function build() {
         'generator/react/template',
         'generator/nestjs/template',
         'generator/fullstack/template',
+        'generator/vite/template',
     ];
 
     for (const template of templatePaths) {
