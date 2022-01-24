@@ -9,11 +9,13 @@ import { ReactGenerator } from './generator/react';
 import { NodeGenerator } from './generator/node';
 import { NestGenerator } from './generator/nestjs';
 import { FullStackGenerator } from './generator/fullstack';
+import { ViteGenerator } from './generator/vite';
 
 interface YargsArguments {
     nest: boolean;
     react: boolean;
     fullstack: boolean;
+    vite: boolean;
     test: boolean;
     mono: boolean;
 }
@@ -45,7 +47,7 @@ export class CoreCodegen {
             this.logger.task('Generation Complete, enjoy coding !');
         } catch (error) {
             try {
-                fs.rmdirSync(this.projectDirectory);
+                fs.rmSync(this.projectDirectory, { recursive: true });
             } catch (error) {
                 // Do nothing
             }
@@ -69,9 +71,14 @@ export class CoreCodegen {
         const isNest = argv.nest;
         const isReact = argv.react;
         const isFullStack = argv.fullstack;
+        const isVite = argv.vite;
         const withTest = argv.test ?? false;
         const isMono = argv.mono ?? false;
         const projectName = this.name;
+
+        if (isVite) {
+            return new ViteGenerator({ projectDirectory: this.projectDirectory, projectName });
+        }
 
         if (isReact) {
             return new ReactGenerator({ projectDirectory: this.projectDirectory, projectName });

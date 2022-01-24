@@ -64,10 +64,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@iamyth/logger@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@iamyth/logger/-/logger-1.0.4.tgz#cf8bbba35a43eef6e23b8cc5565b75435c15b492"
-  integrity sha512-a+viDW7Pk3B166ecG6PCl8DKGqUuI8C9E/W2S/yVeBKS4k02uddhAEvfIsoxNa8jHKnsNhvv27SWcrMUp30LSw==
+"@iamyth/logger@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@iamyth/logger/-/logger-1.0.6.tgz#12bedd71c5cf9d093fa5f9e6bd94b404349bd954"
+  integrity sha512-d4oJtNfus3z4U3RZ79y3IUaRQ8pi5s+NHo8leedENWIhZcIIzXz3t1FCUoIkzAdU58sGnQ1f7ai4tSn9F7phYg==
   dependencies:
     chalk "4.1.0"
 

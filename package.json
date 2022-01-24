@@ -1,6 +1,6 @@
 {
   "name": "@iamyth/core-codegen",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "A simple codegen for Library Starter kit",
   "main": "dist/index.js",
   "repository": {
@@ -34,7 +34,7 @@
     "typescript": "4.4.4"
   },
   "dependencies": {
-    "@iamyth/logger": "1.0.4",
+    "@iamyth/logger": "1.0.6",
     "fs-extra": "10.0.0",
     "yargs": "17.2.1"
   }

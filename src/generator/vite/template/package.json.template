@@ -1,0 +1,11 @@
+{
+    "name": "%%% 1 %%%",
+    "version": "1.0.0",
+    "license": "MIT",
+    "scripts": {
+        "run-script": "ts-node --project config/tsconfig.script.json",
+        "format": "yarn run-script script/format.ts",
+        "start": "yarn run-script script/start.ts",
+        "build": "yarn run-script script/build.ts"
+    }
+}

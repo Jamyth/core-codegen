@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/**
+
+# Build
+dist/**
+build/**
+
+# Caches
+.webpack-cache/**
+
+# OS
+*.DS_Store
+
+# logs
+*/npm-debug.log
+*/yarn-error.log
