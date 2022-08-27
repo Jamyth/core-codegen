@@ -1,5 +1,5 @@
 #! /usr/bin/env node
 
-import { CoreCodegen } from '../CoreCodegen';
+import { CoreCodegen } from "../CoreCodegen";
 
 new CoreCodegen().run();

@@ -1,7 +1,7 @@
-import path from 'path';
-import fs from 'fs-extra';
-import { ReplaceUtil } from '../util/ReplaceUtil';
-import { createConsoleLogger } from '@iamyth/logger';
+import path from "path";
+import fs from "fs-extra";
+import { ReplaceUtil } from "../util/ReplaceUtil";
+import { createConsoleLogger } from "@iamyth/logger";
 
 export interface AbstractGeneratorConstructorOptions {
     projectName: string;
@@ -13,7 +13,7 @@ export abstract class AbstractGenerator {
     protected projectName: string;
     protected projectDirectory: string;
     protected readonly withTest: boolean;
-    private readonly abstractLogger = createConsoleLogger('Abstract Generator');
+    private readonly abstractLogger = createConsoleLogger("Abstract Generator");
 
     constructor({ projectDirectory, withTest, projectName }: AbstractGeneratorConstructorOptions) {
         this.projectDirectory = projectDirectory;
@@ -22,11 +22,11 @@ export abstract class AbstractGenerator {
     }
 
     updatePackageJSON(name: string) {
-        const jsonPath = path.join(this.projectDirectory, './package.json');
+        const jsonPath = path.join(this.projectDirectory, "./package.json");
         this.abstractLogger.task(`Update package.json at ${jsonPath}`);
-        const packageJSON = fs.readFileSync(jsonPath, { encoding: 'utf-8' });
+        const packageJSON = fs.readFileSync(jsonPath, { encoding: "utf-8" });
         const newContent = ReplaceUtil.replaceTemplate(packageJSON, [1], [name]);
-        fs.writeFileSync(jsonPath, newContent, { encoding: 'utf-8' });
+        fs.writeFileSync(jsonPath, newContent, { encoding: "utf-8" });
     }
 
     updateContent(name: string) {}

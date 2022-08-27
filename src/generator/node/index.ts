@@ -1,18 +1,18 @@
-import path from 'path';
-import fs from 'fs-extra';
-import { AbstractGenerator } from '../AbstractGenerator';
-import { createConsoleLogger } from '@iamyth/logger';
-import { CommandUtil } from '../../util/CommandUtil';
-import type { AbstractGeneratorConstructorOptions } from '../AbstractGenerator';
-import { ReplaceUtil } from '../../util/ReplaceUtil';
+import path from "path";
+import fs from "fs-extra";
+import { AbstractGenerator } from "../AbstractGenerator";
+import { createConsoleLogger } from "@iamyth/logger";
+import { CommandUtil } from "../../util/CommandUtil";
+import type { AbstractGeneratorConstructorOptions } from "../AbstractGenerator";
+import { ReplaceUtil } from "../../util/ReplaceUtil";
 
 interface NodeGeneratorOptions extends AbstractGeneratorConstructorOptions {
     isMono: boolean;
 }
 
 export class NodeGenerator extends AbstractGenerator {
-    private readonly templatePath: string = path.join(__dirname, './template');
-    private readonly logger = createConsoleLogger('Node Generator');
+    private readonly templatePath: string = path.join(__dirname, "./template");
+    private readonly logger = createConsoleLogger("Node Generator");
     private readonly isMono: boolean;
     private subProject: string | null;
 
@@ -25,10 +25,10 @@ export class NodeGenerator extends AbstractGenerator {
     copyDirectory(): void {
         this.handleMonoRepo();
         this.logger.task(`Copying Project Template to ${this.projectDirectory}`);
-        const directories = ['config', 'script', 'src'];
+        const directories = ["config", "script", "src"];
 
         if (this.withTest) {
-            directories.push('test');
+            directories.push("test");
         }
 
         for (const directory of directories) {
@@ -44,49 +44,49 @@ export class NodeGenerator extends AbstractGenerator {
 
     updatePackageJSON(name: string) {
         if (this.isMono && this.subProject) {
-            const projectNameSegments = this.projectName.split('/');
+            const projectNameSegments = this.projectName.split("/");
             const prefix = projectNameSegments[0];
             const rootName = `${prefix}/root`;
 
-            const rootJsonPath = path.join(this.projectDirectory, './package.json');
+            const rootJsonPath = path.join(this.projectDirectory, "./package.json");
             this.logger.task(`Update package.json at ${rootJsonPath}`);
-            const rootPackageJSON = fs.readFileSync(rootJsonPath, { encoding: 'utf-8' });
+            const rootPackageJSON = fs.readFileSync(rootJsonPath, { encoding: "utf-8" });
             const newRootPackageJSONContent = ReplaceUtil.replaceTemplate(rootPackageJSON, [1], [rootName]);
-            fs.writeFileSync(rootJsonPath, newRootPackageJSONContent, { encoding: 'utf-8' });
+            fs.writeFileSync(rootJsonPath, newRootPackageJSONContent, { encoding: "utf-8" });
 
-            const jsonPath = path.join(this.projectDirectory, this.subProject, '/package.json');
+            const jsonPath = path.join(this.projectDirectory, this.subProject, "/package.json");
             this.logger.task(`Update package.json at ${jsonPath}`);
-            const packageJSON = fs.readFileSync(jsonPath, { encoding: 'utf-8' });
+            const packageJSON = fs.readFileSync(jsonPath, { encoding: "utf-8" });
             const newContent = ReplaceUtil.replaceTemplate(packageJSON, [1], [name]);
-            fs.writeFileSync(jsonPath, newContent, { encoding: 'utf-8' });
+            fs.writeFileSync(jsonPath, newContent, { encoding: "utf-8" });
         } else {
             super.updatePackageJSON(name);
         }
     }
 
     installDependencies(): void {
-        this.logger.task('Install dev-dependencies');
+        this.logger.task("Install dev-dependencies");
         const devDependencies = [
-            'typescript',
-            'ts-node',
-            '@iamyth/logger',
-            '@iamyth/prettier-config',
-            'prettier',
-            'eslint-config-iamyth',
-            '@types/node',
+            "typescript",
+            "ts-node",
+            "@iamyth/logger",
+            "@iamyth/prettier-config",
+            "prettier",
+            "eslint-config-iamyth",
+            "@types/node",
         ];
 
         if (this.withTest) {
-            devDependencies.push('mocha', '@types/mocha');
+            devDependencies.push("mocha", "@types/mocha");
         }
 
-        const flags = this.subProject ? '-DEW' : '-DE';
+        const flags = this.subProject ? "-DEW" : "-DE";
 
         return CommandUtil.spawn(
             this.projectDirectory,
-            'yarn',
-            ['add', flags, ...devDependencies],
-            'Cannot Install dev-dependencies',
+            "yarn",
+            ["add", flags, ...devDependencies],
+            "Cannot Install dev-dependencies",
         );
     }
 
@@ -94,15 +94,15 @@ export class NodeGenerator extends AbstractGenerator {
         const configFiles: string[] = [
             // prettier-ignore
             'config/tsconfig.base.json',
-            'config/tsconfig.script.json',
-            'config/tsconfig.src.json',
+            "config/tsconfig.script.json",
+            "config/tsconfig.src.json",
         ];
         const scriptFiles: string[] = [
             // prettier-ignore
             'script/build.ts',
-            'script/format.ts',
-            'script/lint.ts',
-            'script/spawn.ts',
+            "script/format.ts",
+            "script/lint.ts",
+            "script/spawn.ts",
         ];
         const srcFiles: string[] = [
             // prettier-ignore
@@ -112,13 +112,13 @@ export class NodeGenerator extends AbstractGenerator {
         const files: string[] = [
             // prettier-ignore
             '.eslintrc.js',
-            '.gitignore',
-            '.prettierrc.js',
+            ".gitignore",
+            ".prettierrc.js",
         ];
 
         if (this.withTest) {
-            configFiles.push('config/tsconfig.test.json');
-            testFiles.push('test/index.test.ts');
+            configFiles.push("config/tsconfig.test.json");
+            testFiles.push("test/index.test.ts");
 
             fs.copyFileSync(
                 `${this.templatePath}/tsconfig.json.test-template`,
@@ -145,7 +145,7 @@ export class NodeGenerator extends AbstractGenerator {
                 `${this.projectDirectory}/${this.subProject}/package.json`,
             );
         } else {
-            files.push('package.json');
+            files.push("package.json");
         }
 
         for (const file of [...configFiles, ...scriptFiles, ...srcFiles, ...testFiles]) {
@@ -168,7 +168,7 @@ export class NodeGenerator extends AbstractGenerator {
         if (!this.isMono) {
             return;
         }
-        const projectNameSegments = this.projectName.split('/');
+        const projectNameSegments = this.projectName.split("/");
         const projectName = projectNameSegments[1];
         this.subProject = `packages/${projectName}`;
     }

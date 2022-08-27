@@ -1,9 +1,9 @@
-import { AbstractGenerator } from '../AbstractGenerator';
-import { CommandUtil } from '../../util/CommandUtil';
-import { ReplaceUtil } from '../../util/ReplaceUtil';
-import { createConsoleLogger } from '@iamyth/logger';
-import path from 'path';
-import fs from 'fs-extra';
+import { AbstractGenerator } from "../AbstractGenerator";
+import { CommandUtil } from "../../util/CommandUtil";
+import { ReplaceUtil } from "../../util/ReplaceUtil";
+import { createConsoleLogger } from "@iamyth/logger";
+import path from "path";
+import fs from "fs-extra";
 
 /**
  * Project Structure
@@ -61,17 +61,17 @@ import fs from 'fs-extra';
  * |    +- package.json
  */
 export class FullStackGenerator extends AbstractGenerator {
-    private readonly templatePath: string = path.join(__dirname, './template');
-    private readonly logger = createConsoleLogger('FullStack Generator');
-    private readonly cannotInstallDepMsg = 'Cannot Install dev-dependencies';
+    private readonly templatePath: string = path.join(__dirname, "./template");
+    private readonly logger = createConsoleLogger("FullStack Generator");
+    private readonly cannotInstallDepMsg = "Cannot Install dev-dependencies";
 
     override updatePackageJSON(name: string) {
         const packageJSONs = [
             // prettier-ignore
             path.join(this.projectDirectory, './package.json'),
-            path.join(this.projectDirectory, './api/package.json'),
-            path.join(this.projectDirectory, './web/template/package.json'),
-            path.join(this.projectDirectory, './web/shared/package.json'),
+            path.join(this.projectDirectory, "./api/package.json"),
+            path.join(this.projectDirectory, "./web/template/package.json"),
+            path.join(this.projectDirectory, "./web/shared/package.json"),
         ];
         packageJSONs.map((_) => this.writeFile(name, _));
     }
@@ -91,9 +91,9 @@ export class FullStackGenerator extends AbstractGenerator {
 
     private writeFile(name: string, jsonPath: string) {
         this.logger.task(`Update package.json at ${jsonPath}`);
-        const packageJSON = fs.readFileSync(jsonPath, { encoding: 'utf-8' });
+        const packageJSON = fs.readFileSync(jsonPath, { encoding: "utf-8" });
         const newContent = ReplaceUtil.replaceTemplate(packageJSON, [1], [name]);
-        fs.writeFileSync(jsonPath, newContent, { encoding: 'utf-8' });
+        fs.writeFileSync(jsonPath, newContent, { encoding: "utf-8" });
     }
 
     private mkdirSync(subDirectory: string, directories: string[]) {
@@ -114,83 +114,83 @@ export class FullStackGenerator extends AbstractGenerator {
         const directories: string[] = [
             // prettier-ignore
             'api',
-            'web',
+            "web",
         ];
-        this.mkdirSync('', directories);
+        this.mkdirSync("", directories);
 
         const files: string[] = [
             // prettier-ignore
             '.eslintrc.js',
-            '.prettierrc.js',
-            '.gitignore',
-            'package.json',
+            ".prettierrc.js",
+            ".gitignore",
+            "package.json",
         ];
-        this.copyFileSync('', files);
+        this.copyFileSync("", files);
     }
     private copyNestDirectory() {
         const directories: string[] = [
             // prettier-ignore,
-            'src',
+            "src",
         ];
-        this.mkdirSync('/api', directories);
+        this.mkdirSync("/api", directories);
 
         const files: string[] = [
-            'nestjs-cli.json',
-            'package.json',
-            'tsconfig.json',
-            'tsconfig.build.json',
-            'webpack-config.js',
+            "nestjs-cli.json",
+            "package.json",
+            "tsconfig.json",
+            "tsconfig.build.json",
+            "webpack-config.js",
         ];
-        const srcFiles: string[] = ['src/main.ts', 'src/app.module.ts'];
-        this.copyFileSync('/api', [...files, ...srcFiles]);
+        const srcFiles: string[] = ["src/main.ts", "src/app.module.ts"];
+        this.copyFileSync("/api", [...files, ...srcFiles]);
     }
     private copyWebDirectory() {
         const directories: string[] = [
             // prettier-ignore
             'template/config',
-            'template/script',
-            'template/static',
-            'template/src/component',
-            'template/src/module/main/Main',
-            'template/src/util',
-            'template/src/type',
-            'shared/src',
+            "template/script",
+            "template/static",
+            "template/src/component",
+            "template/src/module/main/Main",
+            "template/src/util",
+            "template/src/type",
+            "shared/src",
         ];
 
-        this.mkdirSync('/web', directories);
+        this.mkdirSync("/web", directories);
 
         const templateConfigFiles: string[] = [
             // prettier-ignore
             'template/config/tsconfig.base.json',
-            'template/config/tsconfig.script.json',
-            'template/config/tsconfig.src.json',
+            "template/config/tsconfig.script.json",
+            "template/config/tsconfig.src.json",
         ];
         const templateScriptFiles: string[] = [
             // prettier-ignore
             'template/script/build.ts',
-            'template/script/format.ts',
-            'template/script/lint.ts',
-            'template/script/spawn.ts',
-            'template/script/start.ts',
+            "template/script/format.ts",
+            "template/script/lint.ts",
+            "template/script/spawn.ts",
+            "template/script/start.ts",
         ];
         const templateSrcFiles: string[] = [
             // prettier-ignore
             'template/src/index.ts',
-            'template/src/index.html',
+            "template/src/index.html",
         ];
 
         const templateModuleMainFiles: string[] = [
             // prettier-ignore
             'template/src/module/main/hooks.ts',
-            'template/src/module/main/index.ts',
-            'template/src/module/main/type.ts',
-            'template/src/module/main/Main/index.tsx',
+            "template/src/module/main/index.ts",
+            "template/src/module/main/type.ts",
+            "template/src/module/main/Main/index.tsx",
         ];
 
         const templateFiles: string[] = [
             // prettier-ignore
             'template/package.json',
-            'template/tsconfig.json',
+            "template/tsconfig.json",
         ];
 
         const sharedFiles: string[] = [
@@ -198,7 +198,7 @@ export class FullStackGenerator extends AbstractGenerator {
             'shared/package.json',
         ];
 
-        this.copyFileSync('/web', [
+        this.copyFileSync("/web", [
             // prettier-ignore
             ...templateConfigFiles,
             ...templateScriptFiles,
@@ -214,28 +214,28 @@ export class FullStackGenerator extends AbstractGenerator {
         const devDependencies: string[] = [
             // prettier-ignore
             'typescript',
-            'ts-node',
-            'prettier',
-            '@iamyth/prettier-config',
-            'eslint-config-iamyth',
-            '@types/node',
-            'coil-react-cli',
-            '@iamyth/logger',
+            "ts-node",
+            "prettier",
+            "@iamyth/prettier-config",
+            "eslint-config-iamyth",
+            "@types/node",
+            "coil-react-cli",
+            "@iamyth/logger",
         ];
-        CommandUtil.spawn(this.projectDirectory, 'yarn', ['add', '-DEW', ...devDependencies], this.cannotInstallDepMsg);
+        CommandUtil.spawn(this.projectDirectory, "yarn", ["add", "-DEW", ...devDependencies], this.cannotInstallDepMsg);
     }
     private installNestDependencies() {
         this.logger.task(`Installing dev-dependencies for API`);
         const devDependencies: string[] = [
             // prettier-ignore
             '@nestjs/schematics',
-            '@nestjs/cli',
-            '@types/express',
+            "@nestjs/cli",
+            "@types/express",
         ];
         CommandUtil.spawn(
-            path.join(this.projectDirectory, 'api'),
-            'yarn',
-            ['add', '-DE', ...devDependencies],
+            path.join(this.projectDirectory, "api"),
+            "yarn",
+            ["add", "-DE", ...devDependencies],
             this.cannotInstallDepMsg,
         );
 
@@ -243,19 +243,19 @@ export class FullStackGenerator extends AbstractGenerator {
         const dependencies: string[] = [
             // prettier-ignore
             '@nestjs/common',
-            '@nestjs/core',
-            '@nestjs/platform-express',
-            'reflect-metadata',
-            'rimraf',
-            'rxjs',
-            'nest-api-generator',
+            "@nestjs/core",
+            "@nestjs/platform-express",
+            "reflect-metadata",
+            "rimraf",
+            "rxjs",
+            "nest-api-generator",
         ];
 
         CommandUtil.spawn(
-            path.join(this.projectDirectory, 'api'),
-            'yarn',
-            ['add', '-E', ...dependencies],
-            'Cannot Install dependencies',
+            path.join(this.projectDirectory, "api"),
+            "yarn",
+            ["add", "-E", ...dependencies],
+            "Cannot Install dependencies",
         );
     }
     private installWebDependencies() {
@@ -263,14 +263,14 @@ export class FullStackGenerator extends AbstractGenerator {
         const dependencies: string[] = [
             // prettier-ignore
             'coil-react',
-            'jamyth-web-util',
+            "jamyth-web-util",
         ];
 
         CommandUtil.spawn(
-            path.join(this.projectDirectory, 'web/template'),
-            'yarn',
-            ['add', '-E', ...dependencies],
-            'Cannot Install dependencies',
+            path.join(this.projectDirectory, "web/template"),
+            "yarn",
+            ["add", "-E", ...dependencies],
+            "Cannot Install dependencies",
         );
 
         this.logger.task(`Installing dev-dependencies for web/template`);
@@ -279,9 +279,9 @@ export class FullStackGenerator extends AbstractGenerator {
             '@iamyth/webpack-runner',
         ];
         CommandUtil.spawn(
-            path.join(this.projectDirectory, 'web/template'),
-            'yarn',
-            ['add', '-DE', ...devDependencies],
+            path.join(this.projectDirectory, "web/template"),
+            "yarn",
+            ["add", "-DE", ...devDependencies],
             this.cannotInstallDepMsg,
         );
 
@@ -289,12 +289,12 @@ export class FullStackGenerator extends AbstractGenerator {
         const sharedDevDependencies: string[] = [
             // prettier-ignore
             '@types/react',
-            'coil-react',
+            "coil-react",
         ];
         CommandUtil.spawn(
-            path.join(this.projectDirectory, 'web/shared'),
-            'yarn',
-            ['add', '-DE', ...sharedDevDependencies],
+            path.join(this.projectDirectory, "web/shared"),
+            "yarn",
+            ["add", "-DE", ...sharedDevDependencies],
             this.cannotInstallDepMsg,
         );
     }

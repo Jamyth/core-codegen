@@ -4,7 +4,7 @@ function replaceTemplate(content: string, iterator: (1 | 2 | 3)[], target: strin
     }
     const templates = iterator.map(getTemplate);
     return templates.reduce((acc, curr, index) => {
-        const regex = new RegExp(curr, 'g');
+        const regex = new RegExp(curr, "g");
         return acc.replace(regex, target[index]);
     }, content);
 }
