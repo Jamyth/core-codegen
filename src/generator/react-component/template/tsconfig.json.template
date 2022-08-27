@@ -1,0 +1,15 @@
+{
+    "files": [],
+    "include": [],
+    "references": [
+        {
+            "path": "./config/tsconfig.test.json"
+        },
+        {
+            "path": "./config/tsconfig.src.json"
+        },
+        {
+            "path": "./config/tsconfig.script.json"
+        },
+    ]
+}

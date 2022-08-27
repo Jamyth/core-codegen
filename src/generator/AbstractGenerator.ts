@@ -29,6 +29,8 @@ export abstract class AbstractGenerator {
         fs.writeFileSync(jsonPath, newContent, { encoding: 'utf-8' });
     }
 
+    updateContent(name: string) {}
+
     protected updateProjectDirectory(directory: string) {
         this.projectDirectory = directory;
     }

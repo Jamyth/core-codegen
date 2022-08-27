@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "target": "ES5",
+
+        "declaration": true,
+        "sourceMap": true,
+        "inlineSources": true,
+        "declarationMap": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+
+        "rootDir": "..",
+        "paths": {
+            "@iamyth/chakra-admin": ["../src"]
+        },
+
+        "importsNotUsedAsValues": "preserve",
+        "isolatedModules": true
+    },
+    "include": [".."]
+}

@@ -10,6 +10,7 @@ import { NodeGenerator } from './generator/node';
 import { NestGenerator } from './generator/nestjs';
 import { FullStackGenerator } from './generator/fullstack';
 import { ViteGenerator } from './generator/vite';
+import { ReactComponentGenerator } from './generator/react-component';
 
 interface YargsArguments {
     nest: boolean;
@@ -18,6 +19,7 @@ interface YargsArguments {
     vite: boolean;
     test: boolean;
     mono: boolean;
+    'react-component': boolean;
 }
 
 const argv = yargs.argv as Arguments<YargsArguments>;
@@ -42,6 +44,7 @@ export class CoreCodegen {
             this.createProjectDirectory();
             this.copyDirectory();
             this.updatePackageJSON();
+            this.updateContent();
             this.installDependencies();
             this.initializeGit();
             this.logger.task('Generation Complete, enjoy coding !');
@@ -72,6 +75,7 @@ export class CoreCodegen {
         const isReact = argv.react;
         const isFullStack = argv.fullstack;
         const isVite = argv.vite;
+        const isReactComponent = argv['react-component'];
         const withTest = argv.test ?? false;
         const isMono = argv.mono ?? false;
         const projectName = this.name;
@@ -90,6 +94,10 @@ export class CoreCodegen {
 
         if (isFullStack) {
             return new FullStackGenerator({ projectDirectory: this.projectDirectory, projectName });
+        }
+
+        if (isReactComponent) {
+            return new ReactComponentGenerator({ projectDirectory: this.projectDirectory, projectName });
         }
 
         return new NodeGenerator({ projectDirectory: this.projectDirectory, withTest, isMono, projectName });
@@ -120,6 +128,10 @@ export class CoreCodegen {
 
     updatePackageJSON() {
         this.generator.updatePackageJSON(this.name);
+    }
+
+    updateContent() {
+        this.generator.updateContent(this.name);
     }
 
     installDependencies() {
