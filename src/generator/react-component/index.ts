@@ -3,7 +3,7 @@ import path from "path";
 import { createConsoleLogger } from "@iamyth/logger";
 import fs from "fs-extra";
 import { CommandUtil } from "../../util/CommandUtil";
-import { ReplaceUtil } from "../../util/ReplaceUtil";
+import { ReplaceUtil, UpdateConfig } from "../../util/ReplaceUtil";
 
 export class ReactComponentGenerator extends AbstractGenerator {
     private readonly templatePath: string = path.join(__dirname, "./template");
@@ -63,11 +63,19 @@ export class ReactComponentGenerator extends AbstractGenerator {
     }
 
     updateContent(name: string): void {
-        const startScriptPath = path.join(this.projectDirectory, "./script/start.ts");
-        this.logger.task(`Update script/start.ts as ${startScriptPath}`);
-        const startScript = fs.readFileSync(startScriptPath, { encoding: "utf-8" });
-        const newContent = ReplaceUtil.replaceTemplate(startScript, [1], [name]);
-        fs.writeFileSync(startScriptPath, newContent, { encoding: "utf-8" });
+        const config: UpdateConfig[] = [
+            {
+                path: path.join(this.projectDirectory, "./script/start.ts"),
+                iterator: [1],
+                target: [name],
+            },
+            {
+                path: path.join(this.projectDirectory, "./config/tsconfig.test.json"),
+                iterator: [1],
+                target: [name],
+            },
+        ];
+        ReplaceUtil.updateContent(config);
     }
 
     installDependencies(): void {

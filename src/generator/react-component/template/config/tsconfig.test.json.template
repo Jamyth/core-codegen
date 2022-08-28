@@ -13,7 +13,7 @@
 
         "rootDir": "..",
         "paths": {
-            "@iamyth/chakra-admin": ["../src"]
+            "%%% 1 %%%": ["../src"]
         },
 
         "importsNotUsedAsValues": "preserve",
